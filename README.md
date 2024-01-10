@@ -1,6 +1,10 @@
 # app_project
 
-A new Flutter project.
+A new Flutter project for UAS Project Security Application subject
+
+**GROUP 3 RKS TRACE**
+
+_Have fun with this! Exploration is amazing!_
 
 ## Getting Started
 
