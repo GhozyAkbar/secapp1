@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "546688766919",
+    "project_id": "resepin-9b834",
+    "storage_bucket": "resepin-9b834.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:546688766919:android:57fba2adcfde5736adbfe2",
+        "android_client_info": {
+          "package_name": "com.example.resepin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "546688766919-gvg6hd410v8shn63hr6ddrvijtorbtpo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4kYUegGAjU5t4eGYD9s28A-Vlc9Kwv7I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "546688766919-gvg6hd410v8shn63hr6ddrvijtorbtpo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
