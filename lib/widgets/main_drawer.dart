@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:resepin/screens/home.dart';
+import 'package:resepin/screens/login_screen.dart';
 
 import '../screens/filters_screen.dart';
 
@@ -62,7 +64,9 @@ class MainDrawer extends StatelessWidget {
               try {
                 await FirebaseAuth.instance.signOut();
                 // Navigate to appropriate screen after logout (e.g., login screen)
-                Navigator.of(context).pushReplacementNamed('/login');
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                );
               } catch (error) {
                 print(error); // Handle any errors here
               }
