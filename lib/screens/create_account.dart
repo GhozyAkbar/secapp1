@@ -69,27 +69,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   ),
                 );
               },
-              child: const Text('Create Account'),
-            ),
-            const SizedBox(height: 30.0),
-            ElevatedButton(
-              onPressed: () async {
-                final message = await AuthService().registration(
-                  email: _emailController.text,
-                  password: _passwordController.text,
-                );
-
-                if (message!.contains('Success')) {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const HomeScreen()),
-                  );
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(message)),
-                  );
-                }
-              },
-              child: const Text('Sign Up'), // Button text
+              child: const Text('Sign Up'),
             ),
           ],
         ),
