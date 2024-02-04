@@ -16,14 +16,16 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-        centerTitle: true,
-      ),
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.asset(
+              'assets/images/logo.png',
+              height: MediaQuery.of(context).size.height / 5,
+              fit: BoxFit.cover,
+            ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
               child: TextField(
