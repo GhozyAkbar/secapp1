@@ -16,14 +16,20 @@ class _CreateAccountState extends State<CreateAccount> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Create Account'),
-        centerTitle: true,
-      ),
+      backgroundColor: Colors.white,
+      // appBar: AppBar(
+      //   title: const Text('Create Account'),
+      //   centerTitle: true,
+      // ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.asset(
+              'assets/images/signup.png',
+              height: MediaQuery.of(context).size.height / 3,
+              fit: BoxFit.cover,
+            ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
               child: TextField(
