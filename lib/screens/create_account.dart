@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:resepin/auth/auth_service.dart';
 import 'package:resepin/screens/home.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,10 @@ class CreateAccount extends StatefulWidget {
 class _CreateAccountState extends State<CreateAccount> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  static GoogleSignIn googleSignIn = GoogleSignIn(
+    scopes: ['email', 'https://www.googleapis.com/auth/contacts.readonly'],
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +76,65 @@ class _CreateAccountState extends State<CreateAccount> {
                 );
               },
               child: const Text('Sign Up'),
+            ),
+            const SizedBox(
+              height: 10.0,
+            ),
+            ElevatedButton.icon(
+              onPressed: () async {
+                try {
+                  await FirebaseAuth.instance.signInWithRedirect(
+                    GoogleAuthProvider(),
+                  );
+                  FirebaseAuth.instance
+                      .authStateChanges()
+                      .listen((User? user) async {
+                    if (user != null) {
+                      final message =
+                          'Sign Up with Google successful: ${FirebaseAuth.instance.currentUser!.displayName}';
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(message),
+                        ),
+                      );
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const HomeScreen(),
+                      ));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Sign-in failed. Please try again.'),
+                        ),
+                      );
+                      // Optionally, log the error for debugging:
+                      print(
+                          'Sign-in failed with error: ${FirebaseAuth.instance.currentUser}');
+                    }
+                  });
+                  // final message =
+                  //     'Sign Up with Google successful: ${userCredential.user!.displayName}';
+                  // ScaffoldMessenger.of(context).showSnackBar(
+                  //   SnackBar(
+                  //     content: Text(message),
+                  //   ),
+                  // );
+                  // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  //   builder: (context) => const HomeScreen(),
+                  // ));
+                } catch (error) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Sign Up with Google failed: $error'),
+                    ),
+                  );
+                }
+              },
+              icon: Image.asset(
+                'assets/images/google_logo.png',
+                height: MediaQuery.of(context).size.height / 30,
+                fit: BoxFit.cover,
+              ),
+              label: const Text('Sign Up with Google'),
             ),
           ],
         ),
