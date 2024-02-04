@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widgets/meal_item.dart';
-import '/Models/meal.dart';
+import 'package:resepin/widgets/meal_item.dart';
+import 'package:resepin/Models/meal.dart';
 
 class CategoryMealsScreen extends StatefulWidget {
   static const routeName = '/category-meals';
@@ -17,7 +17,6 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     final routeArgs =
         ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     categoryTitle = routeArgs['title']!;
@@ -34,11 +33,15 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
     });
   }
 
-  // final String categoryId;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(categoryTitle!)),
+      backgroundColor: Colors.white, // Set background color to white
+      appBar: AppBar(
+        title: Text(categoryTitle!),
+        backgroundColor: Colors.white, // Set AppBar background to white
+        elevation: 0, // Remove AppBar shadow
+      ),
       body: ListView.builder(
         itemBuilder: (ctx, index) {
           return MealItem(
@@ -49,7 +52,6 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
             complexity: displayedMeals![index].complexity,
             affordability: displayedMeals![index].affordability,
           );
-          // return Text(displayedMeals[index].title);
         },
         itemCount: displayedMeals!.length,
       ),

@@ -67,11 +67,11 @@ class _HomeScreen extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Hello',
+      title: 'Resepin',
       theme: ThemeData(
-        primarySwatch: Colors.green,
-        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.amber),
-        canvasColor: const Color.fromRGBO(255, 254, 229, 1),
+        primarySwatch: Colors.deepPurple,
+        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.white),
+        canvasColor: Colors.black,
         fontFamily: 'Raleway',
         textTheme: ThemeData.light().textTheme.copyWith(
             bodyText1: TextStyle(color: Colors.grey[800]),
@@ -81,11 +81,9 @@ class _HomeScreen extends State<HomeScreen> {
                 fontFamily: 'RobotoCondensed',
                 fontWeight: FontWeight.bold)),
         appBarTheme: const AppBarTheme(
-            backgroundColor: Colors.blue,
+            backgroundColor: Colors.white,
             titleTextStyle: TextStyle(
-              fontFamily: 'Raleway',
-              fontSize: 24,
-            )),
+                fontFamily: 'Raleway', fontSize: 24, color: Colors.black)),
       ),
       // home: CategoriesScreen(),
       initialRoute: '/',

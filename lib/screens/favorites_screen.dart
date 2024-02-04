@@ -9,28 +9,28 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (favoriteMeals.isEmpty) {
-      return Center(
-        child: Text(
-          'You have no Favorites--Start Adding Some',
-          style: TextStyle(color: Colors.grey[900], fontSize: 19),
-        ),
-      );
-    } else {
-      return ListView.builder(
-        itemBuilder: (ctx, index) {
-          return MealItem(
-            id: favoriteMeals[index].id,
-            title: favoriteMeals[index].title,
-            imageUrl: favoriteMeals[index].imageUrl,
-            duration: favoriteMeals[index].duration,
-            complexity: favoriteMeals[index].complexity,
-            affordability: favoriteMeals[index].affordability,
-          );
-          // return Text(favoriteMeals[index].title);
-        },
-        itemCount: favoriteMeals.length,
-      );
-    }
+    return Scaffold(
+      backgroundColor: Colors.white, // Set background color to white
+      body: favoriteMeals.isEmpty
+          ? Center(
+              child: Text(
+                'You have no Favorites--Start Adding Some',
+                style: TextStyle(color: Colors.grey[900], fontSize: 19),
+              ),
+            )
+          : ListView.builder(
+              itemBuilder: (ctx, index) {
+                return MealItem(
+                  id: favoriteMeals[index].id,
+                  title: favoriteMeals[index].title,
+                  imageUrl: favoriteMeals[index].imageUrl,
+                  duration: favoriteMeals[index].duration,
+                  complexity: favoriteMeals[index].complexity,
+                  affordability: favoriteMeals[index].affordability,
+                );
+              },
+              itemCount: favoriteMeals.length,
+            ),
+    );
   }
 }

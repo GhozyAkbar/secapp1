@@ -47,7 +47,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Hello',
       theme: ThemeData(
-        primarySwatch: Colors.grey,
+        // primarySwatch: Colors.grey,
+        primaryColor: Colors.deepPurple[400],
       ),
       home: StreamBuilder(
         stream: auth.authStateChanges(),

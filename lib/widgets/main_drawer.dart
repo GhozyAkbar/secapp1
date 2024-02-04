@@ -1,9 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:resepin/screens/home.dart';
 import 'package:resepin/screens/login_screen.dart';
-
-import '../screens/filters_screen.dart';
+import 'package:resepin/screens/filters_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({Key? key}) : super(key: key);
@@ -16,10 +15,7 @@ class MainDrawer extends StatelessWidget {
       ),
       title: Text(
         title,
-        style: TextStyle(
-            fontFamily: 'RobotoCondensed',
-            fontSize: 24,
-            fontWeight: FontWeight.bold),
+        style: GoogleFonts.quicksand(fontSize: 26),
       ),
       onTap: tapHandler,
     );
@@ -35,14 +31,12 @@ class MainDrawer extends StatelessWidget {
             width: double.infinity,
             padding: EdgeInsets.all(20),
             alignment: Alignment.centerLeft,
-            color: Theme.of(context).colorScheme.secondary,
+            color: Colors.purple,
             child: Center(
               child: (Text(
                 'Resepin',
-                style: TextStyle(
-                    fontWeight: FontWeight.w900,
-                    fontSize: 30,
-                    color: Theme.of(context).primaryColor),
+                style:
+                    GoogleFonts.concertOne(fontSize: 42, color: Colors.white),
               )),
             ),
           ),

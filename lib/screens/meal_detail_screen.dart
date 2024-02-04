@@ -21,7 +21,7 @@ class MealDetailScreen extends StatelessWidget {
   Widget buildContainer(Widget child) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.amberAccent,
+          color: Colors.white,
           border: Border.all(color: Colors.grey),
           borderRadius: BorderRadius.circular(10)),
       margin: EdgeInsets.all(10),
@@ -38,6 +38,7 @@ class MealDetailScreen extends StatelessWidget {
     final selectedMeal = DUMMY_MEALS.firstWhere((meal) => meal.id == mealId);
     return Scaffold(
       appBar: AppBar(title: Text(selectedMeal.title)),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -53,7 +54,7 @@ class MealDetailScreen extends StatelessWidget {
             buildContainer(
               ListView.builder(
                 itemBuilder: (context, index) => Card(
-                  color: Colors.amberAccent,
+                  color: Color.fromARGB(255, 130, 211, 255),
                   child: Padding(
                       padding:
                           EdgeInsets.symmetric(vertical: 5, horizontal: 10),
