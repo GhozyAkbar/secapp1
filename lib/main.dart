@@ -1,111 +1,76 @@
+import 'dart:io';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:resepin/screens/home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:resepin/screens/login_screen.dart';
 
-import './data/dummy_data.dart';
-import './screens/filters_screen.dart';
-import './screens/tabs_screen.dart';
-import './screens/meal_detail_screen.dart';
-import './screens/category_meals_screen.dart';
-import './screens/categories_screen.dart';
-import './Models/meal.dart';
+// import './data/dummy_data.dart';
+// import './screens/filters_screen.dart';
+// import './screens/tabs_screen.dart';
+// import './screens/meal_detail_screen.dart';
+// import './screens/category_meals_screen.dart';
+// import './screens/categories_screen.dart';
+// import './Models/meal.dart';
 
-void main() => runApp(MyApp());
+// void main() => runApp(MyApp());
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+// class MyApp extends StatefulWidget {
+//   const MyApp({Key? key}) : super(key: key);
 
-  @override
-  State<MyApp> createState() => _MyAppState();
+//   @override
+//   State<MyApp> createState() => _MyAppState();
+// }
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Platform.isAndroid
+      ? await Firebase.initializeApp(
+          options: const FirebaseOptions(
+          apiKey: 'AIzaSyC4kYUegGAjU5t4eGYD9s28A-Vlc9Kwv7I',
+          appId: '1:546688766919:android:57fba2adcfde5736adbfe2',
+          messagingSenderId: '546688766919',
+          projectId: 'resepin-9b834',
+        ))
+      : await Firebase.initializeApp();
+  runApp(const MyApp());
 }
 
-class _MyAppState extends State<MyApp> {
-  Map<String, bool> _filters = {
-    'gluten': false,
-    'lactose': false,
-    'vegetarian': false,
-    'vegan': false,
-  };
-  List<Meal> _availableMeals = DUMMY_MEALS;
-  List<Meal> _favoriteMeals = [];
-
-  void _setFilters(Map<String, bool> filterData) {
-    setState(() {
-      _filters = filterData;
-      _availableMeals = DUMMY_MEALS.where((meal) {
-        if (_filters['gluten']! && !meal.isGlutenFree) {
-          return false;
-        }
-        if (_filters['lactose']! && !meal.isLactoseFree) {
-          return false;
-        }
-        if (_filters['vegan']! && !meal.isVegan) {
-          return false;
-        }
-        if (_filters['vegetarian']! && !meal.isVegetarian) {
-          return false;
-        }
-        return true;
-      }).toList();
-    });
-  }
-
-  void _toggleFavorite(String mealId) {
-    final existingIndex =
-        _favoriteMeals.indexWhere((meal) => meal.id == mealId);
-    if (existingIndex >= 0) {
-      setState(() {
-        _favoriteMeals.removeAt(existingIndex);
-      });
-    } else {
-      setState(() {
-        _favoriteMeals.add(DUMMY_MEALS.firstWhere((meal) => meal.id == mealId));
-      });
-    }
-  }
-
-  bool isMealFavorite(String id) {
-    return _favoriteMeals.any((meal) => meal.id == id);
-  }
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth auth = FirebaseAuth.instance;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Resepin',
+      title: 'Hello',
       theme: ThemeData(
-        primarySwatch: Colors.green,
-        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.amber),
-        canvasColor: const Color.fromRGBO(255, 254, 229, 1),
-        fontFamily: 'Raleway',
-        textTheme: ThemeData.light().textTheme.copyWith(
-            bodyText1: TextStyle(color: Colors.grey[800]),
-            bodyText2: TextStyle(color: Color.fromARGB(255, 28, 28, 28)),
-            headline6: const TextStyle(
-                fontSize: 20,
-                fontFamily: 'RobotoCondensed',
-                fontWeight: FontWeight.bold)),
-        appBarTheme: const AppBarTheme(
-            backgroundColor: Colors.blue,
-            titleTextStyle: TextStyle(
-              fontFamily: 'Raleway',
-              fontSize: 24,
-            )),
+        primarySwatch: Colors.grey,
       ),
-      // home: CategoriesScreen(),
-      initialRoute: '/',
-      routes: {
-        '/': ((context) => TabsScreen(_favoriteMeals)),
-        CategoryMealsScreen.routeName: ((context) =>
-            CategoryMealsScreen(_availableMeals)),
-        // '/category-meals': ((context) => CategoryMealsScreen()),
-        MealDetailScreen.routeName: (context) =>
-            MealDetailScreen(_toggleFavorite, isMealFavorite),
-        FiltersScreen.routeName: (context) =>
-            FiltersScreen(_filters, _setFilters),
-      },
-
-      onUnknownRoute: (settings) {
-        return MaterialPageRoute(builder: ((context) => CategoriesScreen()));
-      },
+      home: StreamBuilder(
+        stream: auth.authStateChanges(),
+        builder: (context, snapshot) {
+          print('state: ${snapshot.connectionState}');
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.connectionState == ConnectionState.done ||
+              snapshot.connectionState == ConnectionState.active) {
+            if (snapshot.hasData) {
+              return const HomeScreen();
+            } else {
+              return const LoginScreen();
+            }
+          } else {
+            return Center(
+              child: Text('State: ${snapshot.connectionState}'),
+            );
+          }
+        },
+      ),
     );
   }
 }
